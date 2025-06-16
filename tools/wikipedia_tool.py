@@ -1,11 +1,16 @@
 import wikipedia
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def wikipedia_search(query: str) -> str:
     try:
-        simplified_query = query.replace("List", "").replace("Research", "").strip()
-        page = wikipedia.page(simplified_query, auto_suggest=True)
-        return page.summary[:500] + "..."  # Increased to 500 chars
-    except Exception as e:
-        if "attractions in paris" in query.lower():
-            return "Top attractions in Paris include the Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, Sacré-Cœur Basilica, and Musée d'Orsay."
+        wiki = wikipedia.Wikipedia('en')
+        page = wiki.page(query)
+        if page.exists():
+            return page.summary[:500]  # Limit to 500 chars
         return f"No Wikipedia page found for '{query}'."
+    except Exception as e:
+        logger.error(f"Wikipedia search error: {str(e)}")
+        return f"Error searching Wikipedia: {str(e)}"
