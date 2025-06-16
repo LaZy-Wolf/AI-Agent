@@ -1,10 +1,10 @@
-langgraph==0.4.8
-langchain
-pydantic
-requests
-pytube
-wikipedia-api
+langgraph==0.4.8 
+langchain 
+pydantic 
+requests 
+pytube 
+wikipedia 
 streamlit
-pytest
+pytest 
 youtube-search
 python-dotenv
